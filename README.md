@@ -116,3 +116,10 @@ PR opened, will trigger CI/CD pipeline:
 - → OPA / tfsec / checkov
 - → approval
 - → terraform apply
+
+
+# Todo
+
+- [ ] Completing the modules for LLM workloads (ECS, SageMaker, Bedrock, s3 buckets, IAM, etc.)
+- [ ] Setting up CI/CD pipelines for automated deployments
+- [ ] Documenting best practices for team usage and management
