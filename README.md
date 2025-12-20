@@ -40,52 +40,67 @@ Before we go to how to operate it, we need to define what can or cannot do in th
 ```sh
 modules/
 ├── networking/     # VPC, subnets, endpoints
-├── eks/            # Base EKS cluster
-├── eks-gpu/        # GPU node groups / Karpenter
-├── llm-inference/  # vLLM / TGI / Ray Serve
-├── rag/            # End-to-end RAG stack
-├── vector-store/   # OpenSearch / pgvector / DynamoDB
+├── eks/            # Base EKS cluster (Support GPU nodes / Karpenter)
+├── bedrock/        # Bedrock generative AI
+├── lambda/         # Lambda functions
+├── ecs/            # ECS cluster for LLM hosting
+├── iam/            # IAM roles / policies
+├── s3/             # S3 buckets for data storage
+├── glue/           # Glue catalog & crawlers
 ├── sagemaker/      # Training & hosting
-├── observability/  # Prometheus, Grafana, CW
-├── security/       # IAM, IRSA, KMS, SCP helpers
-└── ci-cd/          # OIDC roles, pipelines
 environments/
 ├── shared/         # Shared infra (VPC, EKS base)
-    |__ staging/
-    |   ├── main.tf
-    |   ├── variables.tf
-    |   └── outputs.tf
+    ├── staging/
+        ├── networking/
+            ├── main.tf
+            ├── versions.tf
+            ├── backend.tf
+            └── providers.tf
     └── production/
-        ├── main.tf
-        ├── variables.tf
-        └── outputs.tf
+        ├── networking/
+            ├── main.tf
+            ├── versions.tf
+            ├── backend.tf
+            └── providers.tf
 ├── team-frontend/        # Team frontend workloads
-    |__ staging/
-    |   ├── main.tf
-    |   ├── variables.tf
-    |   └── outputs.tf
+    ├── staging/
+        ├── cloudfront/
+            ├── main.tf
+            ├── versions.tf
+            ├── backend.tf
+            └── providers.tf
     └── production/
-        ├── main.tf
-        ├── variables.tf
-        └── outputs.tf
+        ├── cloudfront/
+            ├── main.tf
+            ├── versions.tf
+            ├── backend.tf
+            └── providers.tf
 ├── team-backend/        # Team backend workloads
-    |__ staging/
-    |   ├── main.tf
-    |   ├── variables.tf
-    |   └── outputs.tf
+    ├── staging/
+        ├── eks/
+            ├── main.tf
+            ├── versions.tf
+            ├── backend.tf
+            └── providers.tf
     └── production/
-        ├── main.tf
-        ├── variables.tf
-        └── outputs.tf
+        ├── eks/
+            ├── main.tf
+            ├── versions.tf
+            ├── backend.tf
+            └── providers.tf
 └── team-mlops/        # Team mlops workloads
-    |__ staging/
-    |   ├── main.tf
-    |   ├── variables.tf
-    |   └── outputs.tf
+    ├── staging/
+        ├── bootstrap/
+            ├── main.tf
+            ├── versions.tf
+            ├── backend.tf
+            └── providers.tf
     └── production/
-        ├── main.tf
-        ├── variables.tf
-        └── outputs.tf
+        ├── bootstrap/
+            ├── main.tf
+            ├── versions.tf
+            ├── backend.tf
+            └── providers.tf
 ```
 
 1. Networking (Shared Account)
