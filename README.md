@@ -138,3 +138,7 @@ PR opened, will trigger CI/CD pipeline:
 - [ ] Completing the modules for LLM workloads (ECS, SageMaker, Bedrock, s3 buckets, IAM, etc.)
 - [ ] Setting up CI/CD pipelines for automated deployments
 - [ ] Documenting best practices for team usage and management
+- [ ] Implementing monitoring and alerting for infrastructure health and performance
+- [ ] Creating cost management strategies and tagging policies
+- [ ] Rearchitecting for scalability and future growth
+- [ ] Adding examples and templates for common LLM workloads
