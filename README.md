@@ -49,7 +49,7 @@ modules/
 ├── glue/           # Glue catalog & crawlers
 ├── sagemaker/      # Training & hosting
 environments/
-├── shared/         # Shared infra (VPC, EKS base)
+├── shared/         # Shared infra
     ├── staging/
         ├── networking/
             ├── main.tf
