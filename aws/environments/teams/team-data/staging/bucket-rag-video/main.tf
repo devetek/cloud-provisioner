@@ -12,6 +12,7 @@ module "terraform_state_bucket" {
   ]
 
   tags = {
+    team = "team-data"
     purpose = "llm-rag-video-storage"
     env     = "staging"
   }

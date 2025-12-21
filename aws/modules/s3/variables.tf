@@ -55,3 +55,9 @@ variable "public_access_block" {
   default     = true
   description = "If true, all public access to the bucket is blocked."
 }
+
+variable "force_destroy" {
+  type        = bool
+  default     = false
+  description = "Whether to force destroy the bucket. If true, the bucket will be deleted even if it contains objects."
+}
