@@ -1,77 +1,59 @@
 variable "cluster_name" {
-  type        = string
-  description = "EKS cluster name"
+  type = string
 }
 
 variable "region" {
   type = string
-  description = "AWS region to deploy the EKS cluster"
 }
 
 variable "vpc_id" {
   type = string
-  description = "The VPC ID where the EKS cluster will be deployed"
 }
 
-variable "private_subnet_ids" {
+variable "subnet_ids" {
   type = list(string)
-  description = "A list of private subnet IDs for the EKS cluster"
 }
 
-variable "kubernetes_version" {
-  type    = string
-  default = "1.34"
-  description = "Kubernetes version for the EKS cluster"
-}
-
-variable "enable_gpu" {
+variable "enable_irsa" {
   type    = bool
   default = true
-  description = "Whether to enable GPU node group for the EKS cluster"
 }
 
-variable "gpu_instance_types" {
-  type    = list(string)
-  default = ["g5.2xlarge"]
-  description = "List of GPU instance types for the GPU node group"
+variable "admin_principal_arn" {
+  type = string
 }
 
-variable "gpu_min_size" {
-  type    = number
-  default = 0
-  description = "Minimum number of GPU nodes"
-}
+variable "eks_managed_node_groups" {
+  description = "Managed node groups (CPU / GPU)"
+  type = map(object({
+    instance_types = list(string)
+    ami_type       = string
 
-variable "gpu_max_size" {
-  type    = number
-  default = 5
-  description = "Maximum number of GPU nodes"
-}
+    min_size     = number
+    max_size     = number
+    desired_size = number
 
-variable "enable_karpenter" {
-  type    = bool
-  default = true
-  description = "Whether to enable Karpenter for the EKS cluster"
+    labels = optional(map(string))
+    taints = optional(map(object({
+      key    = string
+      value  = string
+      effect = string
+    })))
+  }))
+  default = {}
 }
 
 variable "tags" {
-  type = map(string)
-  description = "A map of tags to assign to the EKS resources"
-}
-
-variable "cluster_endpoint_public_access" {
-  type    = bool
-  default = false
-  description = "Whether the EKS cluster endpoint is publicly accessible"
-}
-
-variable "cluster_endpoint_private_access" {
-  type    = bool
-  default = true
-  description = "Whether the EKS cluster endpoint is privately accessible"
-}
-variable "eks_managed_node_groups" {
-  type    = map(any)
+  type    = map(string)
   default = {}
-  description = "A map of EKS managed node groups configurations"
+}
+variable "kubernetes_version" {
+  type    = string
+  default = "1.27"
+}
+
+variable "admin_role_arns" {
+  description = "List of IAM role ARNs to grant cluster administrator access."
+  type        = list(string)
+  default     = []
 }

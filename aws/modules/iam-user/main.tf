@@ -1,0 +1,19 @@
+resource "aws_iam_user" "this" {
+  name = var.name
+  path = var.path
+  tags = var.tags
+}
+
+resource "aws_iam_user_policy_attachment" "this" {
+  for_each = toset(var.policy_arns)
+
+  user       = aws_iam_user.this.name
+  policy_arn = each.value
+}
+
+resource "aws_iam_access_key" "this" {
+  count = var.create_access_key ? 1 : 0
+
+  user    = aws_iam_user.this.name
+  pgp_key = var.pgp_key
+}
