@@ -1,6 +1,6 @@
 ## Basic
 
-In this folder will contains all the necessary information to understand the structure and how to operate kubernetes platform for LLM projects.
+This directory contains the kubernetes configuration files for managing Cloud Infrastructure related to SDLC (Software Development Life Cycle) projects.
 
 The folder is structured as follows:   
 
