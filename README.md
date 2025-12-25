@@ -54,6 +54,11 @@ sldc/                       # Root folder for SDLC (Software Development Life Cy
 ```
 
 
+Go to your cluster:
+```sh
+aws eks --region ap-southeast-1 update-kubeconfig --name <CLUSTER-NAME>
+```
+
 # Todo
 
 - [ ] Completing the modules for LLM workloads (ECS, SageMaker, Bedrock, s3 buckets, IAM, etc.)

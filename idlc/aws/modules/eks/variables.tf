@@ -2,6 +2,18 @@ variable "cluster_name" {
   type = string
 }
 
+variable "endpoint_private_access" {
+  type = bool
+  default = false
+  description = "Enable or disable private access to the EKS cluster endpoint."
+}
+
+variable "endpoint_public_access" {
+  type    = bool
+  default = true
+  description = "Enable or disable public access to the EKS cluster endpoint."
+}
+
 variable "region" {
   type = string
 }
@@ -29,16 +41,21 @@ variable "eks_managed_node_groups" {
     instance_types = list(string)
     ami_type       = string
 
+    # configureable scaling config for node groups
     min_size     = number
     max_size     = number
     desired_size = number
 
+    # configurable disk size for node group instances
+    disk_size    = optional(number)
+
+    # optional labels and taints
     labels = optional(map(string))
-    taints = optional(map(object({
+    taints = optional(list(object({
       key    = string
       value  = string
       effect = string
-    })))
+    })), [])
   }))
   default = {}
 }
@@ -50,6 +67,12 @@ variable "tags" {
 variable "kubernetes_version" {
   type    = string
   default = "1.27"
+}
+
+variable "enable_deletion_protection" {
+  type    = bool
+  default = false
+  description = "Enable or disable deletion protection for the EKS cluster."
 }
 
 variable "admin_role_arns" {

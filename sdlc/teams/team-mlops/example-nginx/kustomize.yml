@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kustomize-example
+spec:
+  project: default
+  source:
+    path: deployment/staging
+    repoURL: 'https://github.com/dPanel-ID/kubernetes-example'
+    targetRevision: main
+  destination:
+    namespace: default
+    server: 'https://kubernetes.default.svc'

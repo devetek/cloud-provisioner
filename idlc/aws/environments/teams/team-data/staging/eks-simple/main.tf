@@ -22,7 +22,7 @@ module "eks_ollama" {
   source = "./../../../../../modules/eks"
 
   kubernetes_version = "1.33"
-  cluster_name       = "team-data-ollama-staging"
+  cluster_name       = "team-data-simple-staging"
   region             = "ap-southeast-1" # GPU-safe region
 
   vpc_id     = data.terraform_remote_state.shared_vpc.outputs.vpc_id
@@ -33,49 +33,25 @@ module "eks_ollama" {
 
   eks_managed_node_groups = {
     # Normal node group for non-GPU workloads
-    # nongpu = {
-    #   instance_types = ["t3.medium"]
-    #   ami_type       = "AL2_x86_64"
-
-    #   min_size     = 1
-    #   max_size     = 3
-    #   desired_size = 2
-
-    #   labels = {
-    #     workload = "general"
-    #     app      = "sidecar"
-    #     team     = "team-data"
-    #   }
-    # }
-    gpu = {
-      instance_types = ["g5.xlarge"]
-      ami_type = "AL2023_x86_64_STANDARD"
-      disk_size = 100
+    nongpu = {
+      instance_types = ["t3.medium"]
+      ami_type       = "AL2023_x86_64_STANDARD"
 
       min_size     = 2
-      max_size     = 2
+      max_size     = 10
       desired_size = 2
 
       labels = {
-        workload = "ollama"
-        gpu      = "true"
+        workload = "general"
+        app      = "simple"
         team     = "team-data"
       }
-
-      # selected taints to ensure only GPU workloads are scheduled on GPU nodes
-      # taints = {
-      #   gpu = {
-      #     key    = "nvidia.com/gpu"
-      #     value  = "true"
-      #     effect = "NO_SCHEDULE"
-      #   }
-      # }
     }
   }
 
   tags = {
     team = "team-data"
-    app  = "ollama"
+    app  = "simple"
     env  = "staging"
   }
 }

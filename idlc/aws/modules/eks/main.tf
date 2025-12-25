@@ -23,12 +23,13 @@ resource "aws_eks_cluster" "this" {
   name     = var.cluster_name
   role_arn = aws_iam_role.cluster.arn
 
-  version = "1.29"
+  version             = var.kubernetes_version
+  deletion_protection = var.enable_deletion_protection
 
   vpc_config {
     subnet_ids              = var.subnet_ids
-    endpoint_public_access  = true
-    endpoint_private_access = true
+    endpoint_public_access  = var.endpoint_public_access
+    endpoint_private_access = var.endpoint_private_access
   }
 
   tags = var.tags

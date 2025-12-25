@@ -40,6 +40,8 @@ resource "aws_eks_node_group" "this" {
   instance_types = each.value.instance_types
   ami_type       = each.value.ami_type
 
+  disk_size = each.value.disk_size != null ? each.value.disk_size : 20
+
   scaling_config {
     min_size     = each.value.min_size
     max_size     = each.value.max_size
@@ -49,7 +51,7 @@ resource "aws_eks_node_group" "this" {
   labels = lookup(each.value, "labels", null)
 
   dynamic "taint" {
-    for_each = lookup(each.value, "taints", {})
+    for_each = try(each.value.taints, [])
     content {
       key    = taint.value.key
       value  = taint.value.value

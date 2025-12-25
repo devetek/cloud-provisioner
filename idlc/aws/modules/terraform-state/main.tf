@@ -1,6 +1,7 @@
 resource "aws_s3_bucket" "state" {
   bucket = var.bucket_name
   tags   = var.tags
+  force_destroy = true
 }
 
 resource "aws_s3_bucket_versioning" "state" {

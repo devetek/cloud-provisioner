@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-example-staging
+  annotations:
+    cert-manager.io/issuer: "letsencrypt-staging"
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  ingressClassName: "nginx"
+  tls:
+  - hosts:
+    - aws-eks.terpusat.me
+    secretName: nginx-example-staging-tls
+  rules:
+  - host: aws-eks.terpusat.me
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx
+            port:
+              number: 80

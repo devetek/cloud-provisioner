@@ -1,14 +1,21 @@
 module "vpc" {
   source = "./../../../../modules/vpc"
 
-  name         = "platform-staging"
-  cluster_name = "platform-staging"
+  name         = "vpc-sg-shared-staging"
+  cluster_name = "vpc-sg-shared-staging"
 
   cidr = "10.0.0.0/16"
-  azs  = ["ap-southeast-3a", "ap-southeast-3b", "ap-southeast-3c"]
+  azs  = ["ap-southeast-1a", "ap-southeast-1b", "ap-southeast-1c"]
 
-  public_subnets  = ["10.0.1.0/24", "10.0.2.0/24"]
-  private_subnets = ["10.0.11.0/24", "10.0.12.0/24"]
+  public_subnets = [
+    "10.0.0.0/20",
+    "10.0.16.0/20"
+  ]
+
+  private_subnets = [
+    "10.0.32.0/20",
+    "10.0.48.0/20"
+  ]
 
   tags = {
     owner = "platform"
